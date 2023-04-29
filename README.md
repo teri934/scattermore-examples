@@ -5,5 +5,6 @@ This repository contains scripts for visualizing data from the last chapter of m
 ## image data for download
 
 [maps](http://download.geofabrik.de/europe/czech-republic.html)
+
 [fossils](https://3d.si.edu)
 
