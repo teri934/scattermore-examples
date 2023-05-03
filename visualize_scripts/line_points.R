@@ -1,4 +1,5 @@
 library(scattermore)
+library(RColorBrewer)
 
 makedata <- function(
     n = 10240, k = 30, d = 40,

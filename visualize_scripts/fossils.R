@@ -2,6 +2,8 @@ library(magrittr)
 library(scattermore)
 library(RColorBrewer)
 
+# you have to download the files and place them into the folder
+# https://3d.si.edu
 trex <- as.matrix(read.table('../fossils_data/trex_points.tsv')[,2:3])
 
 # without blur

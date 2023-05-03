@@ -2,6 +2,8 @@ library(magrittr)
 library(scattermore)
 library(RColorBrewer)
 
+# you have to download the files and place them into the folder
+# http://download.geofabrik.de/europe/czech-republic.html
 water_points <- as.matrix(read.table('../maps_data/czech_waterways_points')[,2:3])
 ways_points <- as.matrix(read.table('../maps_data/czech_highways_points')[,2:3])
 
@@ -15,12 +17,12 @@ ways_lines_original <- as.matrix(read.table('../maps_data/czech_highways_lines.t
 
 # plot using points
 par(mar=c(0,0,0,0))
-water_points %>% scatter_histogram(out_size=c(768,512)) %>%
+water_points %>% scatter_points_histogram(out_size=c(768,512)) %>%
 log1p %>% histogram_to_rgbwt(RGBA=col2rgb(brewer.pal(9, 'Blues'), alpha=1)) %>%
 rgbwt_to_rgba_int %>% rgba_int_to_raster %>% plot
 
 par(mar=c(0,0,0,0))
-ways_points %>% scatter_histogram(out_size=c(768,512)) %>%
+ways_points %>% scatter_points_histogram(out_size=c(768,512)) %>%
 log1p %>% histogram_to_rgbwt(RGBA=col2rgb(brewer.pal(9, 'BrBG'), alpha=1)) %>%
 rgbwt_to_rgba_int %>% rgba_int_to_raster %>% plot
 
@@ -41,12 +43,12 @@ rgbwt_to_rgba_int %>% rgba_int_to_raster %>% plot
 
 # plot using lines
 par(mar=c(0,0,0,0))
-ways_lines_original %>%scatter_lines_histogram(out_size=c(512,768)) %>%
+ways_lines_original %>% scatter_lines_histogram(out_size=c(512,768)) %>%
 log1p %>% histogram_to_rgbwt(RGBA=col2rgb(brewer.pal(9, 'BrBG'), alpha=1)) %>%
 rgbwt_to_rgba_int %>% rgba_int_to_raster %>% plot
 
 par(mar=c(0,0,0,0))
-water_lines_original %>%scatter_lines_histogram(out_size=c(512,768)) %>%
+water_lines_original %>% scatter_lines_histogram(out_size=c(512,768)) %>%
 log1p %>% histogram_to_rgbwt(RGBA=col2rgb(brewer.pal(9, 'Blues'), alpha=1)) %>%
 rgbwt_to_rgba_int %>% rgba_int_to_raster %>% plot
 
