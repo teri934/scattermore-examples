@@ -6,12 +6,12 @@ from math import sin, cos, sqrt, fabs
 def Clifford(x, y, a, b, c, d, *o):
     return sin(a * y) + c * cos(a * x), \
            sin(b * x) + d * cos(b * y)
-           
+
 @jit(nopython=True)
 def Svensson(x, y, a, b, c, d, *o):
     return d * sin(a * x) - sin(b * y), \
            c * cos(a * x) + cos(b * y)
-           
+
 @jit(nopython=True)
 def Hopalong2(x, y, a, b, c, *o):
     return y - 1.0 - sqrt(fabs(b * x - 1.0 - c)) * np.sign(x - 1.0), \
@@ -22,14 +22,14 @@ def Symmetric_Icon(x, y, a, b, g, om, l, d, *o):
     zzbar = x*x + y*y
     p = a*zzbar + l
     zreal, zimag = x, y
-    
+
     for i in range(1, d-1):
         za, zb = zreal * x - zimag * y, zimag * x + zreal * y
         zreal, zimag = za, zb
-    
+
     zn = x*zreal - y*zimag
     p += b*zn
-    
+
     return p*x + g*zreal - om*y, \
            p*y - g*zimag + om*x
 
@@ -46,8 +46,8 @@ def trajectory_coords(fn, x0, y0, a, b=0, c=0, d=0, e=0, f=0, n=n):
 def trajectory(fn, x0, y0, a, b=0, c=0, d=0, e=0, f=0, n=n):
     x, y = trajectory_coords(fn, x0, y0, a, b, c, d, e, f, n)
     return pd.DataFrame(dict(x=x,y=y))
-	
-	
+
+
 df = trajectory(Clifford, 0, 0, -1.3, -1.3, -1.8, -1.9)
 df.to_csv(r'C:\Users\kulic\Desktop\data_images\clifford.csv', index=False)
 

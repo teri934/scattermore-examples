@@ -81,7 +81,7 @@ plot(rgba_int_to_raster(rgbwt_to_rgba_int(lines_rgbwt)))
 
 # plot histogram of lines together with points
 par(mar=c(0,0,0,0))
-lines_histogram %>% log1p %>% apply_kernel_histogram(filter="gauss", radius=10) %>% 
+lines_histogram %>% log1p %>% apply_kernel_histogram(filter="gauss", radius=10) %>%
 histogram_to_rgbwt(RGBA=col2rgb(brewer.pal(9, 'Oranges'), alpha=1)) %>% {. ->> lines_histogram_rgbwt}
 
 comb <- merge_rgbwt(points_rgbwt, lines_histogram_rgbwt)

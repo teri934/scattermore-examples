@@ -16,20 +16,19 @@ lns <- lns[-(starts-1),]
 # plot density of the data
 par(mar=c(0,0,0,0))
 {
-log(1 + 10 * (pts %>% scatter_points_histogram %>%  
-apply_kernel_histogram(radius=5))) %>% histogram_to_rgbwt(RGBA=col2rgb(colorRampPalette(brewer.pal(9, "BuPu"))(50), alpha=1))%>% 
-{. ->> pts_rgbwt} %>% rgbwt_to_rgba_int %>% rgba_int_to_raster %>% plot
+log(1 + 10 * (pts %>% scatter_points_histogram %>%
+apply_kernel_histogram(filter = "gauss", radius=5))) %>% histogram_to_rgbwt(RGBA=col2rgb(colorRampPalette(brewer.pal(9, "BuPu"))(50), alpha=1))%>%
+{. ->> pts_rgbwt} %>% rgbwt_to_rgba_int %>% rgba_int_to_raster %>% plot(interpolate=F)
 }
 
 
 # plot line data
 par(mar=c(0,0,0,0))
 lns %>% scatter_lines_rgbwt(RGBA=c(255,255,140,10)) %>% {. ->> lns_rgbwt} %>%
-rgbwt_to_rgba_int %>% rgba_int_to_raster %>% plot
+rgbwt_to_rgba_int %>% rgba_int_to_raster %>% plot(interpolate=F)
 
 
 # blend the together so the lines are above the points
 par(mar=c(0,0,0,0))
 comb <- blend_rgba_float(list(rgbwt_to_rgba_float(lns_rgbwt), rgbwt_to_rgba_float(pts_rgbwt)))
-comb %>% rgba_float_to_rgba_int %>% rgba_int_to_raster %>% plot
-
+comb %>% rgba_float_to_rgba_int %>% rgba_int_to_raster %>% plot(interpolate=F)
